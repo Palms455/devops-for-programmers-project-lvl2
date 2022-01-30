@@ -6,7 +6,7 @@ remote-install:
 	ansible-playbook playbook.yml --tags=install -i inventory.ini --ask-vault-pass
 
 remote-stop:
-	ansible-playbook playbook.yml --tags=stop -i inventory.ini --ask-vault-pass
+	ansible-playbook stop_containers.yml -i inventory.ini --ask-vault-pass
 
 deploy-ask-pass:
 	ansible-playbook playbook.yml --tags=deploy -i inventory.ini --ask-vault-pass
@@ -19,7 +19,6 @@ setup:
 
 touch-vault-password-file:
 	touch vault-password
-
 
 encrypt-vault:
 	ansible-vault encrypt $(FILE) --vault-password-file vault-password
