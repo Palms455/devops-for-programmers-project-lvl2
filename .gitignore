@@ -1,3 +1,4 @@
 .env
 *vault.yml
 group_vars/webservers/vault.yml
+vault-password

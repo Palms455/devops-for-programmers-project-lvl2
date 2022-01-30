@@ -47,8 +47,14 @@
         recreate: yes
         detach: yes
         ports:
-          - 5000:3000
+          - "{{ app_port }}:3000"
         env_file: .env
       tags:
         - deploy
 
+- name: Datadog http check
+  hosts: webservers
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - name: datadog.datadog
