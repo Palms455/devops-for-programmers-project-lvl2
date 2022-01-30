@@ -2,7 +2,6 @@
 - hosts: all
   gather_facts: no
   become: yes
-
   tasks:
     - name: Install pypackages
       ansible.builtin.apt:
@@ -23,21 +22,6 @@
         dest: .env
       tags:
         - deploy
-
-    - name: Get running containers
-      docker_host_info:
-        containers: yes
-      register: docker_info
-      tags:
-        - stop
-
-    - name: Stop running containers
-      docker_container:
-        name: "{{ item }}"
-        state: stopped
-      loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
-      tags:
-        - stop
 
     - name: Deploy app
       community.docker.docker_container:
