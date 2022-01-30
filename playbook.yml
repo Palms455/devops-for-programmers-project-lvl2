@@ -1,0 +1,60 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Install pypackages
+      ansible.builtin.apt:
+        name: python3-pip
+        update_cache: yes
+      tags:
+        - install
+
+    - name: Install Docker
+      ansible.builtin.pip:
+        name: docker
+      tags:
+        - install
+
+    - name: template env_file
+      template:
+        src: ./templates/.env.j2
+        dest: .env
+      tags:
+        - deploy
+
+    - name: Get running containers
+      docker_host_info:
+        containers: yes
+      register: docker_info
+      tags:
+        - stop
+
+    - name: Stop running containers
+      docker_container:
+        name: "{{ item }}"
+        state: stopped
+      loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
+      tags:
+        - stop
+
+    - name: Deploy app
+      community.docker.docker_container:
+        name: redmine
+        image: redmine
+        state: started
+        recreate: yes
+        detach: yes
+        ports:
+          - "{{ app_port }}:3000"
+        env_file: .env
+      tags:
+        - deploy
+
+- name: Datadog http check
+  hosts: webservers
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - name: datadog.datadog
