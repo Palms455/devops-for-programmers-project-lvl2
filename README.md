@@ -4,6 +4,8 @@
 # Devops for programmers project lvl 2
 Деплой Docker-образов с помощью Ansible на платформе DigitalOcean
 
+## Сайт: https://devoops.website/
+
 ## Make команды
 - make install - установка зависимосей, для деплоя
 - make remote-install - установка зависимостей на серверах
