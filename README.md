@@ -9,7 +9,6 @@
 ## Make команды
 - make install - установка зависимосей, для деплоя
 - make remote-install - установка зависимостей на серверах
-- make remote-stop - остановить контейнеры на серверах
 - make deploy - разворачивание приложения на DO c vault-password-file
 - make deploy-ask-pass - разворачивание приложения с указанием пароля вручную
 - make encrypt-vault - расшифровка файла с паролями

@@ -1,11 +1,11 @@
-app_port: 5000
-datadog_api_key: "{{ datadog_api_key }}"
-datadog_site: "{{ datadog_site }}"
+redmine_app_port: 5000
+datadog_api_key: "{{ vault_datadog_api_key }}"
+datadog_site: "{{ vault_datadog_site }}"
 datadog_checks:
   http_check:
     init_config:
     instances:
       - name: Application health check status
-        url: "http://localhost:{{ app_port }}"
+        url: "http://localhost:{{ redmine_app_port }}"
         timeout: 5
         method: GET

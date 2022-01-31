@@ -1,44 +1,42 @@
 ---
+- name: Install pypackages
+  hosts: all
+  vars:
+    pip_install_packages:
+      - name: docker
+
+  roles:
+    - geerlingguy.pip
+
+
 - hosts: all
   gather_facts: no
   become: yes
   tasks:
-    - name: Install pypackages
-      ansible.builtin.apt:
-        name: python3-pip
-        update_cache: yes
-      tags:
-        - install
-
-    - name: Install Docker
-      ansible.builtin.pip:
-        name: docker
-      tags:
-        - install
-
     - name: template env_file
       template:
-        src: ./templates/.env.j2
+        src: templates/.env.j2
         dest: .env
+        mode: 0664
       tags:
         - deploy
+
 
     - name: Deploy app
       community.docker.docker_container:
         name: redmine
-        image: redmine
+        image: redmine:4.2
         state: started
-        recreate: yes
         detach: yes
         ports:
-          - "{{ app_port }}:3000"
+          - "{{ redmine_app_port }}:3000"
         env_file: .env
       tags:
         - deploy
 
+
 - name: Datadog http check
   hosts: webservers
   gather_facts: yes
-  remote_user: root
   roles:
     - name: datadog.datadog
