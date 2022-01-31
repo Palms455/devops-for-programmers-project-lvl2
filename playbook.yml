@@ -1,9 +1,13 @@
 ---
 - name: Install pypackages
   hosts: all
+  vars:
+    pip_install_packages:
+      - name: docker
+
   roles:
     - geerlingguy.pip
-    - geerlingguy.docker
+
 
 - hosts: all
   gather_facts: no
