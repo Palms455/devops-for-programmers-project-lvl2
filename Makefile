@@ -1,12 +1,8 @@
 install:
-	ansible-galaxy role install -r requirements.yml
-	ansible-galaxy collection install -r requirements.yml
+	ansible-galaxy install -r requirements.yml
 
 remote-install:
 	ansible-playbook playbook.yml --tags=install -i inventory.ini --ask-vault-pass
-
-remote-stop:
-	ansible-playbook stop_containers.yml -i inventory.ini --ask-vault-pass
 
 deploy-ask-pass:
 	ansible-playbook playbook.yml --tags=deploy -i inventory.ini --ask-vault-pass
