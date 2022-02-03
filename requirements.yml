@@ -6,8 +6,5 @@ roles:
   - name: datadog.datadog
     version: 4.12.0
 
-  - name: geerlingguy.docker
-    version: 4.1.3
-
   - name: geerlingguy.pip
     version: 2.1.0

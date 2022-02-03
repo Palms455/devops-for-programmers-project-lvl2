@@ -18,10 +18,12 @@
 - make touch-vault-password-file - создать vault-password file
 
 Использумые переменные окружения
-- db_host
-- db_pass
-- db_user
-- db_name
-- db_port
-- datadog_api_key
-- datadog_site
+- db_host - url подключения к бд Postgres
+- db_port - port подключения к бд
+- db_pass - пароль бд
+- db_user - имя пользователя бд
+- db_name - имя бд
+- datadog_api_key - токен datadog
+- datadog_site - сайт datadog
+- redmine_app_port - внешний порт приложения
+- redmine_version - версия redmine
