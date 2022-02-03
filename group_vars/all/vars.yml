@@ -1,4 +1,5 @@
 redmine_app_port: 5000
+redmine_version: 4.2
 datadog_api_key: "{{ vault_datadog_api_key }}"
 datadog_site: "{{ vault_datadog_site }}"
 datadog_checks:
@@ -9,3 +10,6 @@ datadog_checks:
         url: "http://localhost:{{ redmine_app_port }}"
         timeout: 5
         method: GET
+
+pip_install_packages:
+  - name: docker
